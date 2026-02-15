@@ -1,0 +1,323 @@
+/* ------------------------------
+   Global Reset & Base Styles
+------------------------------ */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  color: white;
+}
+
+/* ------------------------------
+   3D Background Canvas
+   - Full screen
+   - Behind all UI
+   - Mouse events allowed (for OrbitControls)
+------------------------------ */
+.webgl {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  z-index: 0;
+  pointer-events: auto; /* 3D scene drag allowed */
+}
+
+/* ------------------------------
+   MAIN UI LAYOUT (Overlay on top)
+------------------------------ */
+#main {
+  position: relative;
+  z-index: 1;
+
+  /* IMPORTANT:
+     UI ko drag-blocker na banane ke liye
+     pointer-events: none;
+     But clickable elements ko wapas enable karenge niche
+  */
+  pointer-events: none;
+
+  display: grid;
+  grid-template-rows: 10% 75% 15%;
+  height: 100vh;
+  padding: 0 10px;
+}
+
+/* Clickable elements ke liye pointer events enable */
+button,
+a,
+li,
+i {
+  pointer-events: auto;
+}
+
+/* ------------------------------
+   TOP NAVBAR
+------------------------------ */
+#main-top {
+  display: grid;
+  grid-template-columns: 45% 55%;
+  padding: 10px;
+}
+
+#topleft {
+  display: flex;
+  align-items: center;
+  font-size: 24px;
+  font-weight: 600;
+  font-family: Georgia, "Times New Roman", Times, serif;
+}
+
+#topleft span {
+  color: red;
+}
+
+#topright {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#topright ul {
+  display: flex;
+  list-style: none;
+  gap: 30px;
+  align-items: center;
+  text-transform: uppercase;
+  font-size: 15px;
+}
+
+#topright ul li span {
+  background-color: red;
+  padding: 8px 14px;
+  border-radius: 4px;
+}
+
+/* ------------------------------
+   MIDDLE SECTION
+------------------------------ */
+#main-mid {
+  display: grid;
+  grid-template-columns: 35% 65%;
+}
+
+/* Left content block */
+#midleft {
+  display: grid;
+  grid-template-rows: 80% 20%;
+}
+
+#midlefttop {
+  padding-top: 45%;
+  font-size: 18px;
+}
+
+#midleft span {
+  font-size: 45px;
+  font-weight: 600;
+}
+
+.Babusaheb {
+  color: white;
+}
+
+.lal {
+  color: red;
+}
+
+/* Buttons */
+#midleftbottom {
+  display: flex;
+  gap: 12px;
+  padding: 30px 0;
+}
+
+#midleftbottom button {
+  padding: 10px 24px;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  border: none;
+}
+
+/* Primary Button */
+#first-button {
+  background-color: red;
+  color: white;
+  border: 3px solid red;
+  transition: 0.3s ease;
+}
+
+#first-button:hover {
+  transform: scale(1.06);
+  box-shadow: 0px 0px 20px rgba(255, 0, 0, 0.6);
+}
+
+/* Secondary Button */
+#second-button-lets {
+  background: transparent;
+  border: 2px solid #ff007f;
+  color: red;
+  font-size: 16px;
+  transition: 0.3s ease;
+}
+
+#second-button-lets:hover {
+  color: white;
+  transform: scale(1.04);
+}
+
+/* ------------------------------
+   BOTTOM SOCIAL ICONS
+------------------------------ */
+#main-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+/* Icons ko perfect circle bana rahe hain */
+#main-bottom i {
+  border: 2px solid red;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 22px;
+  color: red;
+  transition: 0.3s ease;
+  cursor: pointer;
+}
+
+#main-bottom i:hover {
+  transform: scale(1.15);
+  background: rgba(255, 0, 0, 0.3);
+  color: white;
+  box-shadow: 0px 0px 18px rgba(255, 0, 0, 0.6);
+}
+
+/* ------------------------------
+   INFO CARD POPUP (on pin click)
+------------------------------ */
+#info-card {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 320px;
+  transform: translate(-50%, -50%) scale(0.6);
+  opacity: 0;
+  pointer-events: none;
+
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px);
+  border-radius: 12px;
+  padding: 22px;
+  text-align: center;
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0px 0px 24px rgba(0, 255, 255, 0.4);
+  transition: 0.35s ease;
+}
+
+#info-card h2 {
+  margin-bottom: 10px;
+  font-size: 22px;
+  color: #63faff;
+}
+
+#info-card p {
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* Card close "X" */
+#close-card {
+  position: absolute;
+  top: 6px;
+  right: 12px;
+  font-size: 24px;
+  cursor: pointer;
+  color: #ff4f4f;
+  transition: 0.2s ease;
+}
+
+#close-card:hover {
+  transform: scale(1.2);
+}
+
+/* When card is visible */
+#info-card.show {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* ------------------------------
+   RESPONSIVE
+------------------------------ */
+@media (max-width: 992px) {
+  #main-mid {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  #midlefttop {
+    padding-top: 15%;
+  }
+
+  #main-top {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  #topright ul {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 600px) {
+  #main {
+    grid-template-rows: auto auto auto;
+    height: auto;
+  }
+
+  #topright ul {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  #midleft span {
+    font-size: 32px;
+  }
+
+  #midlefttop {
+    padding-top: 10%;
+    font-size: 16px;
+  }
+
+  #midleftbottom {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #midleftbottom button {
+    width: 90%;
+  }
+
+  #main-bottom {
+    flex-wrap: wrap;
+  }
+}
